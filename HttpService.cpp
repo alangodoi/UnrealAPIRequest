@@ -12,7 +12,8 @@ AHttpService::AHttpService()
 }
 
 // Called when the game starts or when spawned
-void AHttpService::BeginPlay(int id, int mes)
+//void AHttpService::BeginPlay(int id, int mes)
+void AHttpService::BeginPlay()
 {
 	Super::BeginPlay();
 	Http = &FHttpModule::Get();
