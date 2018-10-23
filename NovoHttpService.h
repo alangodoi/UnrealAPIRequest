@@ -3,9 +3,13 @@
 #include "Runtime/Online/HTTP/Public/Http.h"
 #include "HttpActor.generated.h"
 
-UCLASS() class CPPPROJECT_API AHttpActor : public AActor { GENERATED_BODY()
+UCLASS(BLUEPRINTABLE) 
+class CPPPROJECT_API AHttpActor : public AActor { 
+  GENERATED_BODY()
 
 public:	FHttpModule* Https;
+  
+  UPROPERTY(BlueprintReadOnly)
 
 /* The actual HTTP call */
 UFUNCTION() void MyHttpCall();
