@@ -4,16 +4,16 @@
 #include "Runtime/Online/HTTP/Public/Http.h"
 #include "HttpActor.generated.h"
 
-UCLASS()
+UCLASS(BLUEPRINTABLE)
 class HELLOHTTP_API AHttpActor : public AActor
 {
 	GENERATED_BODY()
 
 public:
-	FHttpModule* Http;
+	FHttpModule* Https;
 
 	/* The actual HTTP call */
-	UFUNCTION()
+	UFUNCTION(BlueprintReadOnly)
 	void MyHttpCall();
 
 	/*Assign this function to call when the GET request processes sucessfully*/
