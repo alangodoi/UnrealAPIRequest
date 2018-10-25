@@ -1,51 +1,61 @@
-#include "HelloHttp.h"
 #include "HttpActor.h"
+#include "Http.h"
+#include "Json.h"
+#include "Engine/Engine.h"
 
-// Sets default values
-AHttpActor::AHttpActor()
+HttpActor::HttpActor()
 {
-	//When the object is constructed, Get the HTTP module
-	Http = &FHttpModule::Get();
 }
 
-// Called when the game starts or when spawned
-void AHttpActor::BeginPlay()
+/*void HttpActor::sendStr()
 {
-	MyHttpCall();
-	Super::BeginPlay();
+	FHttpModule* Http = &FHttpModule::Get();
+	TSharedRef<IHttpRequest> HttpRequest = Http->CreateRequest();
+	HttpRequest->SetVerb("POST");
+	HttpRequest->SetHeader("Content-Type", "text/plain");
+	HttpRequest->SetURL("localhost:8080/a");
+	HttpRequest->SetContentAsString("POST string from UE4");
+	HttpRequest->ProcessRequest();
+}*/
+
+void HttpActor::getStr()
+{
+	FHttpModule* Http = &FHttpModule::Get();
+	TSharedRef<IHttpRequest> HttpRequest = Http->CreateRequest();
+	HttpRequest->SetVerb("GET");
+	HttpRequest->SetURL("https://api.crmsimples.com.br/API?method=getPainelGame&id=8&mes=1");
+	HttpRequest->SetHeader("Content-Type", "application/json");
+	HttpRequest->SetHeader(TEXT("token"), TEXT("46f343fba7-77b1-4442-89c4-f82a7f33079b"));
+
+	HttpRequest->OnProcessRequestComplete().BindUObject(this, &HttpActor::OnRequestComplete);
+	HttpRequest->ProcessRequest();
 }
 
-/*Http call*/
-void AHttpActor::MyHttpCall()
+void HttpActor::OnRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
 {
-	TSharedRef<IHttpRequest> Request = Http->CreateRequest();
-	Request->OnProcessRequestComplete().BindUObject(this, &AHttpActor::OnResponseReceived);
-	//This is the url on which to process the request
-	//Request->SetURL("http://localhost:8081/WebApi/getint.php");
-  Request->SetURL("https://api.crmsimples.com.br/API?method=getPainelGame&id=8&mes=1");
-	Request->SetVerb("GET");
-	Request->SetHeader(TEXT("User-Agent"), "X-UnrealEngine-Agent");
-	Request->SetHeader("Content-Type", TEXT("application/json"));
-  Request->SetHeader(TEXT("token"), "46f343fba7-77b1-4442-89c4-f82a7f33079b");
-	Request->ProcessRequest();
-}
-
-/*Assigned function on successfull http call*/
-void AHttpActor::OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
-{
-	//Create a pointer to hold the json serialized data
-	TSharedPtr<FJsonObject> JsonObject;
-
-	//Create a reader pointer to read the json data
-	TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(Response->GetContentAsString());
-
-	//Deserialize the json data given Reader and the actual object to deserialize
-	if (FJsonSerializer::Deserialize(Reader, JsonObject))
+	if (bWasSuccessful && Response->GetContentType() == TEXT("text/plain"))
 	{
-		//Get the value of the json object by field name
-		int32 recievedInt = JsonObject->GetIntegerField("customInt");
+		FString result = Response->GetContentAsString();
 
-		//Output it to the engine
-		GEngine->AddOnScreenDebugMessage(1, 2.0f, FColor::Green, FString::FromInt(recievedInt));
+		GEngine->AddOnScreenDebugMessage(0, 4.0f, FColor::Orange, TEXT("%s"), *result);
 	}
+	else
+	{
+		GEngine->AddOnScreenDebugMessage(0, 4.0f, FColor::Emerald, TEXT("The Message Wanst receibed"));
+	}
+}
+
+
+void HttpActor::BeginPlay()
+{
+	//Super::BeginPlay();
+
+	//sendStr();
+
+}
+
+void HttpActor::Tick(float DeltaTime)
+{
+	//Super::Tick(DeltaTime);
+
 }

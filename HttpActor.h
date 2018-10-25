@@ -1,27 +1,32 @@
 #pragma once
 
+#include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Runtime/Online/HTTP/Public/Http.h"
 #include "HttpActor.generated.h"
 
 UCLASS(BLUEPRINTABLE)
-class HELLOHTTP_API AHttpActor : public AActor
+class APPJOLIMONT_API HttpActor : public HttpActor
 {
 	GENERATED_BODY()
 
 public:
-	FHttpModule* Https;
 
-	/* The actual HTTP call */
-	UFUNCTION(BlueprintReadOnly)
-	void MyHttpCall();
+	HttpActor();
 
-	/*Assign this function to call when the GET request processes sucessfully*/
-	void OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+protected:
 
-	// Sets default values for this actor's properties
-	AHttpActor();
-
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+public:
+
+	virtual void Tick(float DeltaTime) override;
+
+	/*UFUNCTION()
+		void sendStr();*/
+	UFUNCTION()
+		void getStr();
+	UFUNCTION()
+		void OnRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+
+
 };
