@@ -5,7 +5,7 @@
 #include "HttpActor.generated.h"
 
 UCLASS(BLUEPRINTABLE)
-class APPJOLIMONT_API HttpActor : public AActor
+class APPJOLIMONT_API HttpActor : public AHttpActor
 {
 	//GENERATED_BODY()
 
