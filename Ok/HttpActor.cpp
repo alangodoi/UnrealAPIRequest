@@ -14,7 +14,7 @@ AHttpActor::AHttpActor()
 
 }
 
-void HttpActor::getStr()
+void AHttpActor::getStr()
 {
 	FHttpModule* Http = &FHttpModule::Get();
 	TSharedRef<IHttpRequest> HttpRequest = Http->CreateRequest();
