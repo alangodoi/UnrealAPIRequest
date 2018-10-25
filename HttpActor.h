@@ -5,9 +5,9 @@
 #include "HttpActor.generated.h"
 
 UCLASS(BLUEPRINTABLE)
-class APPJOLIMONT_API HttpActor : public HttpActor
+class APPJOLIMONT_API HttpActor : public AActor
 {
-	GENERATED_BODY()
+	//GENERATED_BODY()
 
 public:
 
@@ -25,8 +25,8 @@ public:
 		void sendStr();*/
 	UFUNCTION()
 		void getStr();
-	UFUNCTION()
-		void OnRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+	//UFUNCTION()
+		//void OnRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 
 
 };

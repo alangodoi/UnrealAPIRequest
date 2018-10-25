@@ -27,11 +27,15 @@ void HttpActor::getStr()
 	HttpRequest->SetHeader("Content-Type", "application/json");
 	HttpRequest->SetHeader(TEXT("token"), TEXT("46f343fba7-77b1-4442-89c4-f82a7f33079b"));
 
-	HttpRequest->OnProcessRequestComplete().BindUObject(this, &HttpActor::OnRequestComplete);
+	//HttpRequest->OnProcessRequestComplete().BindUObject(this, &HttpActor::OnRequestComplete);
+
+	if (GEngine)
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Some debug message!"));
+
 	HttpRequest->ProcessRequest();
 }
 
-void HttpActor::OnRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
+/*void HttpActor::OnRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
 {
 	if (bWasSuccessful && Response->GetContentType() == TEXT("text/plain"))
 	{
@@ -43,7 +47,7 @@ void HttpActor::OnRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Resp
 	{
 		GEngine->AddOnScreenDebugMessage(0, 4.0f, FColor::Emerald, TEXT("The Message Wanst receibed"));
 	}
-}
+}*/
 
 
 void HttpActor::BeginPlay()
