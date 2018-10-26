@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "Http.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "HttpActor.generated.h"
@@ -12,18 +13,47 @@ class APPJOLIMONT2_API AHttpActor : public AActor
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this actor's properties
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+		TArray<FString> ArrCaveJolimont;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+		TArray<FString> ArrSuco;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+		TArray<FString> ArrEspumante;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+		TArray<FString> ArrCerveja;
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+		TArray<FString> ArrVinho;
+
+	UFUNCTION(BlueprintCallable)
+		//TMap<FString, FString> getStr(FString id, FString mes);
+		void getStr(FString id, FString mes);
+	//UFUNCTION(BlueprintCallable)
+	//TMap<FString, FString> OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+	void OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+
+	//Sets default values for this actor's properties
 	AHttpActor();
+
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	/*public:
 
-	UFUNCTION(BlueprintCallable)
-		void getStr();
+		AHttpActor();
+
+		// Called every frame
+		virtual void Tick(float DeltaTime) override;
+
+		UFUNCTION(BlueprintCallable)
+			void getStr();*/
 
 };
