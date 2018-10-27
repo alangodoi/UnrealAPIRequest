@@ -65,68 +65,54 @@ void AHttpActor::OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Re
 		ArrCaveJolimont.Emplace(FString::FromInt(Meta));
 		ArrCaveJolimont.Emplace(FString::SanitizeFloat(PercentualMeta));
 
-		/*ArrayOne.Add(TEXT("Id"), TEXT(FString::FromInt(id)));
-		ArrayOne.Add(TEXT("Nome"), TEXT(nome));
-		ArrayOne.Add(TEXT("DataInicial"), TEXT(DataInicial));
-		ArrayOne.Add(TEXT("DataFinal"), TEXT(DataFinal));
-		ArrayOne.Add(TEXT("ValorNegociacaoGanha"), TEXT(FString::SanitizeFloat(VNGanha)));
-		ArrayOne.Add(TEXT("CountNegociacaoGanha"), TEXT(FString::FromInt(CNGanha)));
-		ArrayOne.Add(TEXT("Meta"), TEXT(FString::FromInt(Meta)));
-		ArrayOne.Add(TEXT("PercentualMeta"), TEXT(FString::SanitizeFloat(PercentualMeta)));*/
-
-		UE_LOG(LogTemp, Warning, TEXT("===== GET ListEquipe ====="));
-		//FString teste = JsonObject->GetField("ListEquipe");
-		//UE_LOG(LogTemp, Warning, TEXT(teste));
-		//ArrSuco = JsonObject->GetArrayField("ListEquipe");
-		//TArray<TSharedPtr<FJsonValue>> objArray = JsonObject->GetArrayField("ListEquipe");
-		//ArrTeste = JsonObject->GetArrayField("ListEquipe");
-		//GEngine->AddOnScreenDebugMessage(1, 2.0f, FColor::Green, "printing ListEquipe...");
-		UE_LOG(LogTemp, Warning, TEXT("===== printing ListEquipe... ====="));
-		auto arr = JsonObject->GetArrayField("ListEquipe");
-		for (int32 index = 0; index < arr.Num(); index++)
-		{
-			//GEngine->AddOnScreenDebugMessage(1, 2.0f, FColor::Green, "name:" + FString(objArray[index]->AsString()));
-			UE_LOG(LogTemp, Warning, TEXT("TESTE"));
-
+		TArray <TSharedPtr<FJsonValue>> marr = JsonObject->GetArrayField("ListEquipe");
+		for (int i = 0; i != marr.Num(); i++) {
+			TSharedPtr<FJsonObject> temp = marr[i]->AsObject();
 			//ArrSuco
-			if (index == 0) {
-				//ArrSuco.Emplace(FString::FromInt();
+			if (i == 0) {
 				UE_LOG(LogTemp, Warning, TEXT("Index = 0"));
-				auto arr2 = arr[0].Get()->TryGetArray;
-
-				//UE_LOG(LogTemp, Warning, TEXT(arr[0].Get()->AsString()));
-				//GEngine->AddOnScreenDebugMessage(1, 2.0f, FColor::Green, FString(sucoId));
-				//UE_LOG(LogTemp, Warning, TEXT(FString(arr[index]["Id"])));
-				//ArrSuco.Append(FString(arr[index]["Id"]), arr[index].Num());
-				//ArrSuco.Emplace(FString::FromInt(id));
-				//ArrSuco.Emplace(nome);
+				ArrSuco.Emplace(FString::FromInt(temp->GetIntegerField("Id")));
+				ArrSuco.Emplace(temp->GetStringField("Nome"));
+				ArrSuco.Emplace(temp->GetStringField("Cor"));
+				ArrSuco.Emplace(FString::SanitizeFloat(temp->GetNumberField("ValorNegociacaoGanha")));
+				ArrSuco.Emplace(FString::FromInt(temp->GetIntegerField("CountNegociacaoGanha")));
+				ArrSuco.Emplace(FString::FromInt(temp->GetIntegerField("Meta")));
+				ArrSuco.Emplace(FString::SanitizeFloat(temp->GetNumberField("PercentualMeta")));
 			}
 			//ArrEspumante
-			else if (index == 1) {
+			else if (i == 1) {
 				UE_LOG(LogTemp, Warning, TEXT("Index = 1"));
+				ArrEspumante.Emplace(FString::FromInt(temp->GetIntegerField("Id")));
+				ArrEspumante.Emplace(temp->GetStringField("Nome"));
+				ArrEspumante.Emplace(temp->GetStringField("Cor"));
+				ArrEspumante.Emplace(FString::SanitizeFloat(temp->GetNumberField("ValorNegociacaoGanha")));
+				ArrEspumante.Emplace(FString::FromInt(temp->GetIntegerField("CountNegociacaoGanha")));
+				ArrEspumante.Emplace(FString::FromInt(temp->GetIntegerField("Meta")));
+				ArrEspumante.Emplace(FString::SanitizeFloat(temp->GetNumberField("PercentualMeta")));
 			}
 			//ArrCerveja
-			else if (index == 2) {
-				UE_LOG(LogTemp, Warning, TEXT("Index = 2"));
+			else if (i == 2) {
+				UE_LOG(LogTemp, Warning, TEXT("Index = 1"));
+				ArrCerveja.Emplace(FString::FromInt(temp->GetIntegerField("Id")));
+				ArrCerveja.Emplace(temp->GetStringField("Nome"));
+				ArrCerveja.Emplace(temp->GetStringField("Cor"));
+				ArrCerveja.Emplace(FString::SanitizeFloat(temp->GetNumberField("ValorNegociacaoGanha")));
+				ArrCerveja.Emplace(FString::FromInt(temp->GetIntegerField("CountNegociacaoGanha")));
+				ArrCerveja.Emplace(FString::FromInt(temp->GetIntegerField("Meta")));
+				ArrCerveja.Emplace(FString::SanitizeFloat(temp->GetNumberField("PercentualMeta")));
 			}
 			//ArrVinho
-			else if (index == 3) {
-				UE_LOG(LogTemp, Warning, TEXT("Index = 3"));
+			else if (i == 3) {
+				UE_LOG(LogTemp, Warning, TEXT("Index = 1"));
+				ArrVinho.Emplace(FString::FromInt(temp->GetIntegerField("Id")));
+				ArrVinho.Emplace(temp->GetStringField("Nome"));
+				ArrVinho.Emplace(temp->GetStringField("Cor"));
+				ArrVinho.Emplace(FString::SanitizeFloat(temp->GetNumberField("ValorNegociacaoGanha")));
+				ArrVinho.Emplace(FString::FromInt(temp->GetIntegerField("CountNegociacaoGanha")));
+				ArrVinho.Emplace(FString::FromInt(temp->GetIntegerField("Meta")));
+				ArrVinho.Emplace(FString::SanitizeFloat(temp->GetNumberField("PercentualMeta")));
 			}
-
-			//UE_LOG(LogTemp, Warning, TEXT(objArray[index]->AsString()));
-			//UE_LOG(LogTemp, Warning, TEXT(FString(ArrSuco[index])));
 		}
-
-		/*for (int itZones = 0; itZones != zonesJs.Num(); itZones++) {
-			TSharedPtr<FJsonObject> temp = zonesJs[itZones]->AsObject();
-			TArray <TSharedPtr<FJsonValue>> eventJs = temp->GetArrayField("events");
-			for (int itEvents = 0; itEvents != eventJs.Num(); itEvents++) {
-				TSharedPtr<FJsonObject> tempEventJs = eventJs[itEvents]->AsObject();
-				FString nameEvents = tempEventJs->GetStringField("name");
-
-			}*/
-
 			//Count Array
 			//int32 CountArr = ArrSuco.Num();
 
