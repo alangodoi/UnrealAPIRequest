@@ -17,7 +17,7 @@ AHttpActor::AHttpActor()
 //TMap<FString, FString> AHttpActor::getStr(FString id, FString mes)
 void AHttpActor::getStr(FString id, FString mes)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("This is an on screen message!"));
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("This is an on screen message!"));
 	FHttpModule* Http = &FHttpModule::Get();
 	TSharedRef<IHttpRequest> HttpRequest = Http->CreateRequest();
 	HttpRequest->SetVerb("GET");
