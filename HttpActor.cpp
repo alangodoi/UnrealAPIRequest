@@ -21,8 +21,8 @@ void AHttpActor::getStr(FString id, FString mes)
 	FHttpModule* Http = &FHttpModule::Get();
 	TSharedRef<IHttpRequest> HttpRequest = Http->CreateRequest();
 	HttpRequest->SetVerb("GET");
-	//HttpRequest->SetURL("https://api.crmsimples.com.br/API?method=getPainelGame&id=8&mes=1");
-	FString URL = "https://api.crmsimples.com.br/API?method=getPainelGame&id=" + id;
+	//HttpRequest->SetURL("https://api.fakesite.com.br/API?method=getPainelGame&id=8&mes=1");
+	FString URL = "https://api.fakesite.com.br/API?method=getPainelGame&id=" + id;
 	URL += "&mes=";
 	URL = URL + mes;
 	HttpRequest->SetURL(URL);
